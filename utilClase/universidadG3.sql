@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 16-06-2022 a las 21:29:49
+-- Tiempo de generación: 19-06-2022 a las 00:44:52
 -- Versión del servidor: 10.4.24-MariaDB
 -- Versión de PHP: 8.1.6
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `universidadg1`
+-- Base de datos: `universidadg3`
 --
 
 -- --------------------------------------------------------
@@ -43,15 +43,17 @@ CREATE TABLE `alumno` (
 INSERT INTO `alumno` (`idAlumno`, `nombre`, `apellido`, `fechNac`, `dni`, `activo`) VALUES
 (1, 'Luis', 'Brandoni', '1977-10-23', 6605908, 1),
 (2, 'Allan', 'Chica', '2012-06-17', 48605789, 1),
-(3, 'Maria Laura', 'Castillo', '1960-11-24', 4401234, 1);
+(3, 'Maria Laura', 'Castillo', '1960-11-24', 4401234, 1),
+(6, 'Elias', 'Garciarena', '1999-03-29', 41773891, NULL),
+(7, 'Pepito', 'Perez', '1999-10-05', 40876283, NULL);
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `cursada`
+-- Estructura de tabla para la tabla `inscripcion`
 --
 
-CREATE TABLE `cursada` (
+CREATE TABLE `inscripcion` (
   `id` int(11) NOT NULL,
   `idAlumno` int(11) NOT NULL,
   `idMateria` int(11) NOT NULL,
@@ -59,10 +61,10 @@ CREATE TABLE `cursada` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Volcado de datos para la tabla `cursada`
+-- Volcado de datos para la tabla `inscripcion`
 --
 
-INSERT INTO `cursada` (`id`, `idAlumno`, `idMateria`, `nota`) VALUES
+INSERT INTO `inscripcion` (`id`, `idAlumno`, `idMateria`, `nota`) VALUES
 (1, 1, 1, 0),
 (2, 3, 1, 0),
 (3, 2, 2, 0);
@@ -100,9 +102,9 @@ ALTER TABLE `alumno`
   ADD UNIQUE KEY `dni` (`dni`);
 
 --
--- Indices de la tabla `cursada`
+-- Indices de la tabla `inscripcion`
 --
-ALTER TABLE `cursada`
+ALTER TABLE `inscripcion`
   ADD PRIMARY KEY (`id`),
   ADD KEY `idAlumno` (`idAlumno`),
   ADD KEY `idMateria` (`idMateria`);
@@ -121,12 +123,12 @@ ALTER TABLE `materia`
 -- AUTO_INCREMENT de la tabla `alumno`
 --
 ALTER TABLE `alumno`
-  MODIFY `idAlumno` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `idAlumno` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT de la tabla `cursada`
+-- AUTO_INCREMENT de la tabla `inscripcion`
 --
-ALTER TABLE `cursada`
+ALTER TABLE `inscripcion`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
@@ -140,11 +142,11 @@ ALTER TABLE `materia`
 --
 
 --
--- Filtros para la tabla `cursada`
+-- Filtros para la tabla `inscripcion`
 --
-ALTER TABLE `cursada`
-  ADD CONSTRAINT `cursada_ibfk_1` FOREIGN KEY (`idAlumno`) REFERENCES `alumno` (`idAlumno`),
-  ADD CONSTRAINT `cursada_ibfk_2` FOREIGN KEY (`idMateria`) REFERENCES `materia` (`idMateria`);
+ALTER TABLE `inscripcion`
+  ADD CONSTRAINT `inscripcion_ibfk_1` FOREIGN KEY (`idAlumno`) REFERENCES `alumno` (`idAlumno`),
+  ADD CONSTRAINT `inscripcion_ibfk_2` FOREIGN KEY (`idMateria`) REFERENCES `materia` (`idMateria`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
