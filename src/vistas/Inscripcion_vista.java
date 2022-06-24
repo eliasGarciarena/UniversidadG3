@@ -10,13 +10,13 @@ import java.util.HashSet;
  *
  * @author Grupo3_LabI
  */
-public class Inscripcion extends javax.swing.JInternalFrame {
+public class Inscripcion_vista extends javax.swing.JInternalFrame {
 private HashSet<Alumno> todosLosAlumnos=new HashSet<>();
 private HashSet<Materia> todasLasMaterias=new HashSet<>();
     /**
      * Creates new form Inscripcion
      */
-    public Inscripcion(HashSet<Alumno> todosLosAlumnos,HashSet<Materia>todasLasMaterias) {
+    public Inscripcion_vista(HashSet<Alumno> todosLosAlumnos,HashSet<Materia>todasLasMaterias) {
         initComponents();
         this.todosLosAlumnos=todosLosAlumnos;
         this.todasLasMaterias=todasLasMaterias;

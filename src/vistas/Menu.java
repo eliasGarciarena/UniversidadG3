@@ -165,7 +165,7 @@ private HashSet<Materia> todasLasMaterias=new HashSet<>();
         
           escritorio.removeAll();
 
-        Inscripcion fm=new Inscripcion(todosLosAlumnos,todasLasMaterias);
+        Inscripcion_vista fm=new Inscripcion_vista(todosLosAlumnos,todasLasMaterias);
         fm.setVisible(true);
         escritorio.add(fm);
         escritorio.repaint();

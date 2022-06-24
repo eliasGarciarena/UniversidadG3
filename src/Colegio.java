@@ -4,8 +4,10 @@
 import data.AlumnoData;
 import entidades.Materia;
 import data.Conexion;
+import data.InscripcionData;
 import data.MateriaData;
 import entidades.Alumno;
+import entidades.Inscripcion;
 import java.sql.*;
 import java.time.LocalDate;
 import java.time.Month;
@@ -25,18 +27,27 @@ public class Colegio {
         Conexion conexion=new Conexion();
         AlumnoData ad=new AlumnoData(conexion);
         MateriaData md=new MateriaData(conexion);
-        //Materia m1= new Materia("Ingles", 2, true);
-        //md.agregarMateria(m1);
-        ArrayList<Materia> materias=md.obtenerMateria();
-        for(Materia mat:materias){
-            System.out.println("nombre:"+mat.getNombre()+" id=:"+mat.getIdMateria());
+        InscripcionData id=new InscripcionData(conexion);
+       Alumno al=ad.obtenerAlumnoXId(1);
+       Materia m1=md.obtenerMateriaXId(1);
+        //Inscripcion inscrip=new Inscripcion(m1, al,9);
+        //id.guardarInscripcion(inscrip);
+        ArrayList <Inscripcion>ins= id.obtenerInscripciones();
+        for(Inscripcion inscrip:ins){
+            System.out.println("Alumno:"+inscrip.getAlumno().getNombre()+" Materia:"+inscrip.getMateria().getNombre());
         }
-        Materia materiaId=md.obtenerMateriaXId(3);
-        System.out.println("--------------Materia por id----------------");
-        System.out.println("Nombre:"+materiaId.getNombre());
-        System.out.println("--------------Modificar---------------------");
-        Materia m2=new Materia(3, "EDA", 1, true);
-        md.modificarMateria(m2);
+        id.modificarNota(al,m1, 9);
+        //md.agregarMateria(m1);
+       // ArrayList<Materia> materias=md.obtenerMateria();
+        //for(Materia mat:materias){
+        //    System.out.println("nombre:"+mat.getNombre()+" id=:"+mat.getIdMateria());
+        //}
+        //Materia materiaId=md.obtenerMateriaXId(3);
+        //System.out.println("--------------Materia por id----------------");
+        //System.out.println("Nombre:"+materiaId.getNombre());
+        //System.out.println("--------------Modificar---------------------");
+        //Materia m2=new Materia(3, "EDA", 1, true);
+        //md.modificarMateria(m2);
         //Materia obma=md.obtenerMateriaXId(2);
         //System.out.println("materia:"+obma.getNombre());
         //Materia mat=md.obtenerMateriaXNombre("Web 1",1);
