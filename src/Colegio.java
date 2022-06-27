@@ -28,7 +28,7 @@ public class Colegio {
         AlumnoData ad=new AlumnoData(conexion);
         MateriaData md=new MateriaData(conexion);
         InscripcionData id=new InscripcionData(conexion);
-        ArrayList<Materia> materias=id.inscripcionesDelAlumno(2);
+        ArrayList<Materia> materias=id.materiasInscriptoAlumno(alumno);
         for(Materia m:materias){
             System.out.println("nombre:"+m.getNombre());
         }
