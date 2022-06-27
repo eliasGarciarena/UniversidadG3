@@ -28,15 +28,19 @@ public class Colegio {
         AlumnoData ad=new AlumnoData(conexion);
         MateriaData md=new MateriaData(conexion);
         InscripcionData id=new InscripcionData(conexion);
-       Alumno al=ad.obtenerAlumnoXId(1);
-       Materia m1=md.obtenerMateriaXId(1);
+        ArrayList<Materia> materias=id.inscripcionesDelAlumno(2);
+        for(Materia m:materias){
+            System.out.println("nombre:"+m.getNombre());
+        }
+       //Alumno al=ad.obtenerAlumnoXId(1);
+       //Materia m1=md.obtenerMateriaXId(1);
         //Inscripcion inscrip=new Inscripcion(m1, al,9);
         //id.guardarInscripcion(inscrip);
-        ArrayList <Inscripcion>ins= id.obtenerInscripciones();
-        for(Inscripcion inscrip:ins){
-            System.out.println("Alumno:"+inscrip.getAlumno().getNombre()+" Materia:"+inscrip.getMateria().getNombre());
-        }
-        id.modificarNota(al,m1, 9);
+        //ArrayList <Inscripcion>ins= id.obtenerInscripciones();
+        //for(Inscripcion inscrip:ins){
+        //    System.out.println("Alumno:"+inscrip.getAlumno().getNombre()+" Materia:"+inscrip.getMateria().getNombre());
+        //}
+        //id.modificarNota(al,m1, 9);
         //md.agregarMateria(m1);
        // ArrayList<Materia> materias=md.obtenerMateria();
         //for(Materia mat:materias){
