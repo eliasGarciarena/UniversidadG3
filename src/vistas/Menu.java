@@ -162,7 +162,7 @@ public class Menu extends javax.swing.JFrame {
         // TODO add your handling code here:
         escritorio.removeAll();
 
-        FormularioAlumno fa = new FormularioAlumno(todosLosAlumnos);
+        FormularioAlumno fa = new FormularioAlumno(todosLosAlumnos, alumnoData);
         fa.setVisible(true);
         escritorio.add(fa);
         escritorio.repaint();
