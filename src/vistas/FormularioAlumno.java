@@ -43,11 +43,12 @@ public class FormularioAlumno extends javax.swing.JInternalFrame {
         jbtnSalir = new javax.swing.JButton();
         jbtnNuevo = new javax.swing.JButton();
         jbtnGuardar = new javax.swing.JButton();
-        jbtnGuardar1 = new javax.swing.JButton();
+        jbtnBuscar = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         jtNombre1 = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jCheckBox1 = new javax.swing.JCheckBox();
+        jbtnActualizar = new javax.swing.JButton();
 
         setClosable(true);
 
@@ -85,10 +86,10 @@ public class FormularioAlumno extends javax.swing.JInternalFrame {
             }
         });
 
-        jbtnGuardar1.setText("Buscar");
-        jbtnGuardar1.addActionListener(new java.awt.event.ActionListener() {
+        jbtnBuscar.setText("Buscar");
+        jbtnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtnGuardar1ActionPerformed(evt);
+                jbtnBuscarActionPerformed(evt);
             }
         });
 
@@ -98,6 +99,8 @@ public class FormularioAlumno extends javax.swing.JInternalFrame {
         jLabel6.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         jLabel6.setText("Estado:");
 
+        jbtnActualizar.setText("Actualizar");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -106,7 +109,7 @@ public class FormularioAlumno extends javax.swing.JInternalFrame {
                 .addGap(40, 40, 40)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 45, Short.MAX_VALUE)
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jLabel1)
                         .addGap(79, 79, 79))
                     .addGroup(layout.createSequentialGroup()
@@ -115,12 +118,6 @@ public class FormularioAlumno extends javax.swing.JInternalFrame {
                                 .addComponent(jLabel6)
                                 .addGap(35, 35, 35)
                                 .addComponent(jCheckBox1))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jbtnGuardar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jbtnNuevo)
-                                .addGap(18, 18, 18)
-                                .addComponent(jbtnSalir))
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addGroup(layout.createSequentialGroup()
                                     .addComponent(jLabel5)
@@ -140,10 +137,20 @@ public class FormularioAlumno extends javax.swing.JInternalFrame {
                                         .addGroup(layout.createSequentialGroup()
                                             .addComponent(jtLegajo)
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                            .addComponent(jbtnGuardar1))
+                                            .addComponent(jbtnBuscar))
                                         .addComponent(jtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(jtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                         .addGap(0, 0, Short.MAX_VALUE))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(30, Short.MAX_VALUE)
+                .addComponent(jbtnGuardar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jbtnNuevo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jbtnActualizar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jbtnSalir)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -154,7 +161,7 @@ public class FormularioAlumno extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jtLegajo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jbtnGuardar1))
+                    .addComponent(jbtnBuscar))
                 .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
@@ -171,12 +178,13 @@ public class FormularioAlumno extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(jCheckBox1))
-                .addGap(28, 28, 28)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbtnSalir)
                     .addComponent(jbtnNuevo)
-                    .addComponent(jbtnGuardar))
-                .addContainerGap(13, Short.MAX_VALUE))
+                    .addComponent(jbtnGuardar)
+                    .addComponent(jbtnActualizar))
+                .addContainerGap())
         );
 
         pack();
@@ -203,9 +211,9 @@ public class FormularioAlumno extends javax.swing.JInternalFrame {
         String apellido = jtApellido.getText();        // TODO add your handling code here:
     }//GEN-LAST:event_jbtnGuardarActionPerformed
 
-    private void jbtnGuardar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnGuardar1ActionPerformed
+    private void jbtnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnBuscarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jbtnGuardar1ActionPerformed
+    }//GEN-LAST:event_jbtnBuscarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -216,8 +224,9 @@ public class FormularioAlumno extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JButton jbtnActualizar;
+    private javax.swing.JButton jbtnBuscar;
     private javax.swing.JButton jbtnGuardar;
-    private javax.swing.JButton jbtnGuardar1;
     private javax.swing.JButton jbtnNuevo;
     private javax.swing.JButton jbtnSalir;
     private javax.swing.JTextField jtApellido;
