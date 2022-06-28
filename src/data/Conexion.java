@@ -14,6 +14,7 @@ import javax.swing.JOptionPane;
  */
 public class Conexion {
 
+    
     private String url = "jdbc:mysql://localhost:3306/universidad_g3";
     private String usuario = "root";
     private String password = "";
@@ -22,7 +23,7 @@ public class Conexion {
 
     public Conexion() {
         try {
-            Class.forName("org.mariadb.jdbc.Driver");
+            Class.forName("org.mariadb.jdbc.Driver");            
         } catch (Exception exc) {
             JOptionPane.showMessageDialog(null, "ERROR AL CARGAR DRIVER DE BD\n" + exc.toString());
             System.out.println("ERROR AL CARGAR DRIVER DE BD\n" + exc.toString());
