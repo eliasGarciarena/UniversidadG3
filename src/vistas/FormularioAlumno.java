@@ -5,7 +5,10 @@ package vistas;
 
 import data.AlumnoData;
 import entidades.Alumno;
+
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import javax.swing.JOptionPane;
 
@@ -238,14 +241,18 @@ public class FormularioAlumno extends javax.swing.JInternalFrame {
         Long dni = Long.parseLong(jtDni.getText());
         Boolean activo = jcbEstado.isSelected();
         
-        /*
-        LocalDate fechNac = jcalendarFechNac.getDate().getTime();
+        //Obtenemos la fecja del jcalendar y la pasamos a LocalDate
+        SimpleDateFormat formatoFecha = new SimpleDateFormat("dd-MM-yyyyy");        
+        String fecha = formatoFecha.format(jcalendarFechNac.getDate());
+        LocalDate fechNac = LocalDate.parse(fecha, DateTimeFormatter.ofPattern("dd-MM-yyyyy"));
+        
+        
         //(int idAlumno, String nombre, String apellido, LocalDate fechNac, long dni, boolean activo) {
         Alumno alumno = new Alumno(nombre,apellido,fechNac,dni,activo);
         if(alumnoData.agregarAlumno(alumno)){
          todosLosAlumnos.add(alumno);
         }
-         */
+         
 
     }//GEN-LAST:event_jbtnGuardarActionPerformed
 
