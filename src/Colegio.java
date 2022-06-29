@@ -23,72 +23,30 @@ import javax.swing.JOptionPane;
 public class Colegio {
 
     public static void main(String[] args) {
-        
-        Conexion conexion=new Conexion();
-        AlumnoData ad=new AlumnoData(conexion);
-        MateriaData md=new MateriaData(conexion);
-        InscripcionData id=new InscripcionData(conexion);
-        ArrayList<Materia> materias=id.materiasInscriptoAlumno(alumno);
-        for(Materia m:materias){
-            System.out.println("nombre:"+m.getNombre());
-        }
-       //Alumno al=ad.obtenerAlumnoXId(1);
-       //Materia m1=md.obtenerMateriaXId(1);
-        //Inscripcion inscrip=new Inscripcion(m1, al,9);
-        //id.guardarInscripcion(inscrip);
-        //ArrayList <Inscripcion>ins= id.obtenerInscripciones();
-        //for(Inscripcion inscrip:ins){
-        //    System.out.println("Alumno:"+inscrip.getAlumno().getNombre()+" Materia:"+inscrip.getMateria().getNombre());
-        //}
-        //id.modificarNota(al,m1, 9);
-        //md.agregarMateria(m1);
-       // ArrayList<Materia> materias=md.obtenerMateria();
-        //for(Materia mat:materias){
-        //    System.out.println("nombre:"+mat.getNombre()+" id=:"+mat.getIdMateria());
-        //}
-        //Materia materiaId=md.obtenerMateriaXId(3);
-        //System.out.println("--------------Materia por id----------------");
-        //System.out.println("Nombre:"+materiaId.getNombre());
-        //System.out.println("--------------Modificar---------------------");
-        //Materia m2=new Materia(3, "EDA", 1, true);
-        //md.modificarMateria(m2);
-        //Materia obma=md.obtenerMateriaXId(2);
-        //System.out.println("materia:"+obma.getNombre());
-        //Materia mat=md.obtenerMateriaXNombre("Web 1",1);
-        //System.out.println("Materia:"+mat.getNombre());
-        //md.eliminarMateria(10);
-        //md.eliminarMateria(11);
-        /*Alumno pepe=new Alumno("Leticia","Moreira",LocalDate.of(1973, Month.MARCH, 12),2344553,true);
-        
-        if(ad.agregarAlumno(pepe)){
-        
-            JOptionPane.showMessageDialog(null, "Alumno Agregado Exitosamente");
-        }
-*/
-        
-        /*List<Alumno> lista=ad.obtenerAlumnos();
-        
-        for(Alumno alu:lista){
-        
-            System.out.println("dni "+alu.getDni());
-            System.out.println("apellido "+alu.getApellido());
-            System.out.println("nombre "+alu.getNombre());
-        }
-        System.out.println("-------------Buscamos por id----------------");
-        Alumno aEncontrado=ad.obtenerAlumnoXId(3);
-        if(aEncontrado!=null){
-        System.out.println("Apellido "+aEncontrado.getApellido());
-        }else {
-        
-            System.out.println("Alumno no existe");
+        //Establece conexion con BD
+        Conexion conexion = new Conexion();
+        //Crea objetos Data
+        AlumnoData ad = new AlumnoData(conexion);
+        MateriaData md = new MateriaData(conexion);
+        InscripcionData id = new InscripcionData(conexion);
+        //Crea un Alumno y lo obtiene por ID
+        Alumno al = ad.obtenerAlumnoXId(1);
+        //Obtiene las materias en las que esta inscripto dicho alumno
+        ArrayList<Materia> materias = id.materiasInscriptoAlumno(al);
+        //Imprime listado
+        System.out.println("ALUMNO: " + al.getNombre() + " " + al.getApellido() + "\n\nLISTADO DE INSCRIPCIONES\n------------------------");
+        for (Materia m : materias) {
+            System.out.println(m.getIdMateria() + " - " +  m.getNombre());
         }
         
-        System.out.println("-------------Modificamos apellido--------------");
-        //aEncontrado.setApellido("Zarate");
-        
-        //ad.modificarAlumno(aEncontrado);
-        System.out.println("-------------Borrar alumno--------------");
-        //ad.borrarAlumno(3);
-        */
+        //Regenera materia por ID
+        Materia mat = md.obtenerMateriaXId(1);
+        //Obtiene lista de inscriptos a partir del ID de una materia, y los imprime
+        ArrayList<Alumno> inscriptos = id.verInscriptosEn(mat.getIdMateria());
+        System.out.println("\n***************************************");
+        System.out.println("\nALUMNOS INSCRIPTOS EN " + mat.getNombre() + "\n");
+        for (Alumno alu : inscriptos) {
+            System.out.println(alu.getNombre() + " " +  alu.getApellido() + " - NOTA: " + id.getNota(alu.getIdAlumno(), mat.getIdMateria()));
+        }
     }
 }
