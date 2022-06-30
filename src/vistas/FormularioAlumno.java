@@ -271,6 +271,8 @@ public class FormularioAlumno extends javax.swing.JInternalFrame {
          jcalendarFechNac.setDate(Date.valueOf(alumno.getFechNac()));
          jcbEstado.setSelected(alumno.isActivo());
          
+        }else{
+            JOptionPane.showMessageDialog(null, "No se encontro alumno");
         }
     }//GEN-LAST:event_jbtnBuscarActionPerformed
 
