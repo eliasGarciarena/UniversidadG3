@@ -117,6 +117,11 @@ public class FormularioAlumno extends javax.swing.JInternalFrame {
         jcbEstado.setSelected(true);
 
         jbtnActualizar.setText("Actualizar");
+        jbtnActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnActualizarActionPerformed(evt);
+            }
+        });
 
         jLabel7.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         jLabel7.setText("Dni:");
@@ -129,7 +134,7 @@ public class FormularioAlumno extends javax.swing.JInternalFrame {
                 .addGap(40, 40, 40)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 33, Short.MAX_VALUE)
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jLabel1)
                         .addGap(79, 79, 79))
                     .addGroup(layout.createSequentialGroup()
@@ -257,12 +262,31 @@ public class FormularioAlumno extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jbtnGuardarActionPerformed
 
     private void jbtnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnBuscarActionPerformed
-        // TODO add your handling code here:
+        Alumno alumno=alumnoData.obtenerAlumnoXId(Integer.parseInt(jtLegajo.getText()));
+        if(alumno!=null){
+         jtNombre.setText(alumno.getNombre());
+         jtApellido.setText(alumno.getApellido());
+         jtDni.setText(String.valueOf(alumno.getDni()));
+         //jcalendarFechNac
+         jcbEstado.setSelected(alumno.isActivo());
+         
+        }
     }//GEN-LAST:event_jbtnBuscarActionPerformed
 
     private void jbtnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnNuevoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jbtnNuevoActionPerformed
+
+    private void jbtnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnActualizarActionPerformed
+        int id=Integer.parseInt(jtLegajo.getText());
+        String nom=jtNombre.getText();
+        String ape=jtApellido.getText();
+        long dni=Long.parseLong(jtDni.getText());
+        LocalDate fechanac=LocalDate.parse(jcalendarFechNac.getDateFormatString());
+        boolean estado=jcbEstado.isSelected();
+        Alumno alumno=new Alumno(id,nom,ape,fechanac,dni,estado);
+        alumnoData.modificarAlumno(alumno);
+    }//GEN-LAST:event_jbtnActualizarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
