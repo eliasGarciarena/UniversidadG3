@@ -12,6 +12,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -186,16 +188,17 @@ public class InscripcionData {
         return materias;
     }
 
-    public ArrayList<Materia> materiasNoIncriptoAlumno(Alumno alumno) {
+    public ArrayList<Materia> materiasNoIncriptoAlumno(int idAlumno) {
         ArrayList<Materia> materias = new ArrayList();
-        for (Materia materia : md.obtenerMateria()) {
-            for (Materia mat : materiasInscriptoAlumno(alumno)) {
-                if (!materia.equals(mat)) {
-                    materias.add(materia);
-                }
-            }
+        try {
+            String sql="Select * from materia where idMateria not in (select idMateria from cursada where idAlumno =?)";
+            PreparedStatement ps;
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, idAlumno);
+            ResultSet rs = ps.executeQuery();
+        } catch (SQLException ex) {
+            Logger.getLogger(InscripcionData.class.getName()).log(Level.SEVERE, null, ex);
         }
-
         return materias;
     }
 

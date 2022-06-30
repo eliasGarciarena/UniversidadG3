@@ -5,6 +5,7 @@ package vistas;
 
 import data.AlumnoData;
 import entidades.Alumno;
+import java.sql.Date;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -247,9 +248,9 @@ public class FormularioAlumno extends javax.swing.JInternalFrame {
         Boolean activo = jcbEstado.isSelected();
         
         //Obtenemos la fecja del jcalendar y la pasamos a LocalDate
-        SimpleDateFormat formatoFecha = new SimpleDateFormat("dd-MM-yyyyy");        
+        SimpleDateFormat formatoFecha = new SimpleDateFormat("dd-MM-yyyy");        
         String fecha = formatoFecha.format(jcalendarFechNac.getDate());
-        LocalDate fechNac = LocalDate.parse(fecha, DateTimeFormatter.ofPattern("dd-MM-yyyyy"));
+        LocalDate fechNac = LocalDate.parse(fecha, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
         
         
         //(int idAlumno, String nombre, String apellido, LocalDate fechNac, long dni, boolean activo) {
@@ -267,7 +268,7 @@ public class FormularioAlumno extends javax.swing.JInternalFrame {
          jtNombre.setText(alumno.getNombre());
          jtApellido.setText(alumno.getApellido());
          jtDni.setText(String.valueOf(alumno.getDni()));
-         //jcalendarFechNac
+         jcalendarFechNac.setDate(Date.valueOf(alumno.getFechNac()));
          jcbEstado.setSelected(alumno.isActivo());
          
         }
@@ -275,6 +276,12 @@ public class FormularioAlumno extends javax.swing.JInternalFrame {
 
     private void jbtnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnNuevoActionPerformed
         // TODO add your handling code here:
+         jtLegajo.setText("");
+         jtNombre.setText("");
+         jtApellido.setText("");
+         jtDni.setText("");
+         LocalDate local=LocalDate.now();
+         jcalendarFechNac.setDate(Date.valueOf(local));
     }//GEN-LAST:event_jbtnNuevoActionPerformed
 
     private void jbtnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnActualizarActionPerformed
@@ -282,9 +289,12 @@ public class FormularioAlumno extends javax.swing.JInternalFrame {
         String nom=jtNombre.getText();
         String ape=jtApellido.getText();
         long dni=Long.parseLong(jtDni.getText());
-        LocalDate fechanac=LocalDate.parse(jcalendarFechNac.getDateFormatString());
+
         boolean estado=jcbEstado.isSelected();
-        Alumno alumno=new Alumno(id,nom,ape,fechanac,dni,estado);
+        SimpleDateFormat formatoFecha = new SimpleDateFormat("dd-MM-yyyy");        
+        String fecha = formatoFecha.format(jcalendarFechNac.getDate());
+        LocalDate fechNac = LocalDate.parse(fecha, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+        Alumno alumno=new Alumno(id,nom,ape,fechNac,dni,estado);
         alumnoData.modificarAlumno(alumno);
     }//GEN-LAST:event_jbtnActualizarActionPerformed
 
