@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 19-06-2022 a las 00:44:52
+-- Tiempo de generación: 29-06-2022 a las 05:19:40
 -- Versión del servidor: 10.4.24-MariaDB
 -- Versión de PHP: 8.1.6
 
@@ -44,8 +44,7 @@ INSERT INTO `alumno` (`idAlumno`, `nombre`, `apellido`, `fechNac`, `dni`, `activ
 (1, 'Luis', 'Brandoni', '1977-10-23', 6605908, 1),
 (2, 'Allan', 'Chica', '2012-06-17', 48605789, 1),
 (3, 'Maria Laura', 'Castillo', '1960-11-24', 4401234, 1),
-(6, 'Elias', 'Garciarena', '1999-03-29', 41773891, NULL),
-(7, 'Pepito', 'Perez', '1999-10-05', 40876283, NULL);
+(4, 'Elias', 'Garciarena', '1999-03-29', 41773891, 1);
 
 -- --------------------------------------------------------
 
@@ -65,9 +64,10 @@ CREATE TABLE `inscripcion` (
 --
 
 INSERT INTO `inscripcion` (`id`, `idAlumno`, `idMateria`, `nota`) VALUES
-(1, 1, 1, 0),
-(2, 3, 1, 0),
-(3, 2, 2, 0);
+(5, 1, 1, 10),
+(6, 1, 2, 10),
+(7, 3, 1, 10),
+(8, 2, 2, 10);
 
 -- --------------------------------------------------------
 
@@ -129,7 +129,7 @@ ALTER TABLE `alumno`
 -- AUTO_INCREMENT de la tabla `inscripcion`
 --
 ALTER TABLE `inscripcion`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `materia`
