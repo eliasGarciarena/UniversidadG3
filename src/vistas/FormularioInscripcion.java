@@ -240,7 +240,7 @@ public class FormularioInscripcion extends javax.swing.JInternalFrame {
             cursadaData.agregarInscripcion(c);
 
             borraFilasTabla();
-
+            cargaDatosNoInscriptas();
         }
     }//GEN-LAST:event_btInscribirActionPerformed
 
@@ -256,7 +256,7 @@ public class FormularioInscripcion extends javax.swing.JInternalFrame {
 
             cursadaData.eliminarInscripcion(a.getIdAlumno(), idMateria);
             borraFilasTabla();
-
+            cargaDatosInscriptas();
         }
 
     }//GEN-LAST:event_btAnularActionPerformed
