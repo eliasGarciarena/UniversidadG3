@@ -63,6 +63,12 @@ public class Materia {
     }
 
     @Override
+    public String toString() {
+        return  getIdMateria()+"-"+getNombre()+ " Año:" + getYear() ;
+    }
+    
+    
+    @Override
     public int hashCode() {
         return 41 * 3 + this.idMateria;
     }
@@ -84,10 +90,4 @@ public class Materia {
         }
         return true;
     }
-
-    @Override
-    public String toString() {
-        return "Materia{" + "idMateria=" + idMateria + ", nombre=" + nombre + ", year=" + year + ", activo=" + activo + '}';
-    }
-
 }

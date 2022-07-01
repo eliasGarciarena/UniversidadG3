@@ -222,14 +222,15 @@ public class InscripcionData {
     public ArrayList<Alumno> verInscriptosEn(int idMateria) {
         ArrayList<Alumno> inscriptos = new ArrayList<>();
         try {
-            String sql = "Select * from alumno where idAlumno in" 
-                    + "(select idAlumno from cursada where idMateria =?)";
+            String sql = "Select * from alumno where idAlumno in (select idAlumno from cursada where idMateria =?)"
+                    + " AND alumno.activo=1;"; 
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, idMateria);
             ResultSet rs = ps.executeQuery();
             Alumno alum;
             while (rs.next()) {
                 alum= new Alumno();
+                alum.setIdAlumno(rs.getInt("idAlumno"));
                 alum.setNombre(rs.getString("nombre"));
                 alum.setApellido(rs.getString("apellido"));
                 alum.setFechNac(rs.getDate("fechNac").toLocalDate());
