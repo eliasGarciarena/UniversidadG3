@@ -71,6 +71,12 @@ public class FormularioAlumno extends javax.swing.JInternalFrame {
         jLabel4.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         jLabel4.setText("Nombre:");
 
+        jtLegajo.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jtLegajoFocusLost(evt);
+            }
+        });
+
         jbtnSalir.setText("Salir");
         jbtnSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -313,6 +319,16 @@ public class FormularioAlumno extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jbtnActualizarActionPerformed
 
+    private void jtLegajoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtLegajoFocusLost
+        verificarVacio(jtLegajo.getText());       
+    }//GEN-LAST:event_jtLegajoFocusLost
+    
+    private void verificarVacio(String campo){
+        if(!campo.equals("")){
+            jbtnGuardar.setEnabled(true);
+        }
+    }
+    
     private void limpiar() {
         this.jtApellido.setText("");
         this.jtDni.setText("");
@@ -320,10 +336,6 @@ public class FormularioAlumno extends javax.swing.JInternalFrame {
         this.jtNombre.setText("");
         this.jcbEstado.setSelected(true);
         jcalendarFechNac.setDate(null);
-    }
-    
-    private void verificarVacios(){
-        
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.toedter.calendar.JCalendar jCalendar1;

@@ -17,7 +17,7 @@ public class Conexion {
     
     private String url = "jdbc:mysql://localhost/universidadg3";
     private String usuario = "root";
-    private String password = "universidadg3TUD$";
+    private String password = "";
 
     private Connection conexion;
 
