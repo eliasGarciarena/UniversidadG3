@@ -12,8 +12,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -107,7 +105,7 @@ public class InscripcionData {
             }
             ps.close();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al obtener alumnos");
+            JOptionPane.showMessageDialog(null, "Error al obtener Inscripcion\n" + ex);
         }
 
         return cur;
@@ -188,18 +186,29 @@ public class InscripcionData {
         return materias;
     }
 
-    public ArrayList<Materia> materiasNoIncriptoAlumno(int idAlumno) {
-        ArrayList<Materia> materias = new ArrayList();
+    public ArrayList<Materia> materiasNoIncriptoAlumno(Alumno alumno) {
+         ArrayList<Materia> materias = new ArrayList<Materia>();
         try {
-            String sql="Select * from materia where idMateria not in (select idMateria from cursada where idAlumno =?)";
-            PreparedStatement ps;
-            ps = con.prepareStatement(sql);
-            ps.setInt(1, idAlumno);
-            ResultSet rs = ps.executeQuery();
+            String sql = "Select * from materia where idMateria not in "
+                    + "(select idMateria from inscripcion where idAlumno =?);";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, alumno.getIdAlumno());
+            ResultSet resultSet = ps.executeQuery();
+            Materia materia;
+            while (resultSet.next()) {
+                materia = new Materia();
+                materia.setIdMateria(resultSet.getInt("idMateria"));
+                materia.setNombre(resultSet.getString("nombre"));
+                materia.setYear(resultSet.getInt("anio"));
+                materias.add(materia);
+            }
+            ps.close();
         } catch (SQLException ex) {
-            Logger.getLogger(InscripcionData.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Error al obtener las Materias\n" + ex.getMessage());
         }
         return materias;
+
+      
     }
 
     public ArrayList<Alumno> verInscriptosEn(int idMateria) {
@@ -218,6 +227,26 @@ public class InscripcionData {
             JOptionPane.showMessageDialog(null, "Error al obtener inscripciones\n" + ex, "Error Obtener inscripciones", JOptionPane.ERROR_MESSAGE);
         }
         return inscriptos;
+    }
+
+    public boolean eliminarInscripcion(int idAlumno, int idMateria) {
+        boolean result = true;
+        String sql = "DELETE FROM `inscripcion` WHERE inscripcion.idAlumno =" + idAlumno+" and idMateria= "+idMateria;
+        try {
+            PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            int rs = ps.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Eliminacion exitosa");
+            if (rs == 0) {
+                result = false;
+            }
+
+            ps.close();
+        } catch (SQLException ex) {
+            result = false;
+            JOptionPane.showMessageDialog(null, "Error de sintaxis\n" + ex);
+        }
+
+        return result;
     }
 
 }

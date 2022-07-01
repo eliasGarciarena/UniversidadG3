@@ -4,6 +4,8 @@
 package vistas;
 
 import entidades.Materia;
+import data.MateriaData;
+import data.Conexion;
 import java.util.HashSet;
 
 /**
@@ -11,13 +13,14 @@ import java.util.HashSet;
  * @author Grupo3_LabI
  */
 public class FormularioMaterias extends javax.swing.JInternalFrame {
-private HashSet<Materia> todasLasMaterias;
+    private MateriaData materiaData = null;
+    
     /**
-     * Creates new form Formulario_materias
+     * Crea nuevo Formulario_materias
      */
-    public FormularioMaterias(HashSet<Materia> todasLasMaterias) {
+    public FormularioMaterias(Conexion conexion) {
         initComponents();
-        this.todasLasMaterias=todasLasMaterias;
+        this.materiaData = new MateriaData(conexion);
     }
 
     /**
@@ -165,8 +168,6 @@ private HashSet<Materia> todasLasMaterias;
         int id=Integer.parseInt(jtID.getText());
         String nombre=jtMateria.getText();
         int anio=Integer.parseInt(jtAnio.getText());
-        //Materia nm=new Materia(id,nombre,anio);
-        //todasLasMaterias.add(nm);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

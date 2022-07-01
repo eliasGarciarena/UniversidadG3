@@ -7,14 +7,7 @@ import data.Conexion;
 import data.InscripcionData;
 import data.MateriaData;
 import entidades.Alumno;
-import entidades.Inscripcion;
-import java.sql.*;
-import java.time.LocalDate;
-import java.time.Month;
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import javax.swing.JOptionPane;
 
 /**
  *
