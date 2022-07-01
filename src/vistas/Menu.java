@@ -1,13 +1,9 @@
 /*
     Menu
-*/
+ */
 package vistas;
 
-import entidades.*;
-
 import java.util.ArrayList;
-import java.util.HashSet;
-
 import data.AlumnoData;
 import data.Conexion;
 
@@ -18,17 +14,13 @@ import data.Conexion;
 public class Menu extends javax.swing.JFrame {
 
     Conexion conn = new Conexion();
-    private HashSet<Alumno> todosLosAlumnos = new HashSet<>();
-    private HashSet<Materia> todasLasMaterias = new HashSet<>();
     AlumnoData alumnoData = new AlumnoData(conn);
 
     /**
-     * Creates new form Menu
+     * Crea nuevo Menu
      */
     public Menu() {
         initComponents();
-        //Como en el metodo obtener alumno de alumno data devuelve una lista tenemos que pasarla a hashSet
-        todosLosAlumnos = new  HashSet<>(alumnoData.obtenerAlumnos());
     }
 
     /**
@@ -46,14 +38,18 @@ public class Menu extends javax.swing.JFrame {
         escritorio = new javax.swing.JDesktopPane();
         jButton1 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu5 = new javax.swing.JMenu();
+        jMenuItem6 = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
-        jmenuItemMostrarAlumnos = new javax.swing.JMenuItem();
-        jMenu3 = new javax.swing.JMenu();
-        jMenuItem5 = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenu6 = new javax.swing.JMenu();
+        jMenuItem3 = new javax.swing.JMenuItem();
+        jMenu7 = new javax.swing.JMenu();
+        jMenuItem7 = new javax.swing.JMenuItem();
+        jMenu8 = new javax.swing.JMenu();
+        jMenuItemMostrarAlumnos = new javax.swing.JMenuItem();
 
         jMenuItem4.setText("jMenuItem4");
 
@@ -84,20 +80,29 @@ public class Menu extends javax.swing.JFrame {
         escritorioLayout.setVerticalGroup(
             escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, escritorioLayout.createSequentialGroup()
-                .addContainerGap(324, Short.MAX_VALUE)
+                .addContainerGap(326, Short.MAX_VALUE)
                 .addComponent(jButton1)
                 .addGap(18, 18, 18))
         );
 
-        jMenu1.setText("Operaciones");
-
-        jMenuItem1.setText("Formulario de Alumno");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        jMenu5.setText("Archivo");
+        jMenu5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                jButton1ActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem1);
+
+        jMenuItem6.setText("Salir");
+        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jMenu5.add(jMenuItem6);
+
+        jMenuBar1.add(jMenu5);
+
+        jMenu1.setText("Materias");
 
         jMenuItem2.setText("Formulario de Materia");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
@@ -107,44 +112,50 @@ public class Menu extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItem2);
 
-        jMenuItem3.setText("Formulario de Inscripción");
+        jMenuBar1.add(jMenu1);
+
+        jMenu4.setText("Alumnos");
+
+        jMenuItem1.setText("Formulario de Alumno");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jMenuItem1);
+
+        jMenuBar1.add(jMenu4);
+
+        jMenu6.setText("Inscripciones");
+
+        jMenuItem3.setText("Gestionar Inscripcion");
         jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem3ActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem3);
+        jMenu6.add(jMenuItem3);
 
-        jMenuBar1.add(jMenu1);
+        jMenuBar1.add(jMenu6);
 
-        jMenu4.setText("Alumnos");
+        jMenu7.setText("Carga de Notas");
 
-        jmenuItemMostrarAlumnos.setText("Mostrar Alumnos");
-        jmenuItemMostrarAlumnos.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItem7.setText("Manipulacion de Notas");
+        jMenu7.add(jMenuItem7);
+
+        jMenuBar1.add(jMenu7);
+
+        jMenu8.setText("Consultas");
+
+        jMenuItemMostrarAlumnos.setText("Listar Alumnos por Materia");
+        jMenuItemMostrarAlumnos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmenuItemMostrarAlumnosActionPerformed(evt);
+                jMenuItemMostrarAlumnosActionPerformed(evt);
             }
         });
-        jMenu4.add(jmenuItemMostrarAlumnos);
+        jMenu8.add(jMenuItemMostrarAlumnos);
 
-        jMenuBar1.add(jMenu4);
-
-        jMenu3.setText("Salir");
-        jMenu3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenu3ActionPerformed(evt);
-            }
-        });
-
-        jMenuItem5.setText("Exit");
-        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem5ActionPerformed(evt);
-            }
-        });
-        jMenu3.add(jMenuItem5);
-
-        jMenuBar1.add(jMenu3);
+        jMenuBar1.add(jMenu8);
 
         setJMenuBar(jMenuBar1);
 
@@ -166,7 +177,7 @@ public class Menu extends javax.swing.JFrame {
         // TODO add your handling code here:
         escritorio.removeAll();
 
-        FormularioAlumno fa = new FormularioAlumno(todosLosAlumnos, alumnoData);
+        FormularioAlumno fa = new FormularioAlumno(conn);
         fa.setVisible(true);
         escritorio.add(fa);
         escritorio.repaint();
@@ -175,10 +186,10 @@ public class Menu extends javax.swing.JFrame {
     }// GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jMenuItem2ActionPerformed
-        // TODO add your handling code here:
+        //Borra todo el contenido del canvas
         escritorio.removeAll();
-
-        FormularioMaterias fm = new FormularioMaterias(todasLasMaterias);
+        //Crea nueva vista FormularioMaterias, la muestra y la trae al frente
+        FormularioMaterias fm = new FormularioMaterias(conn);
         fm.setVisible(true);
         escritorio.add(fm);
         escritorio.repaint();
@@ -187,11 +198,10 @@ public class Menu extends javax.swing.JFrame {
     }// GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jMenuItem3ActionPerformed
-        // TODO add your handling code here:
-
+        //Borra todo el contenido del canvas
         escritorio.removeAll();
-
-        Inscripcion_vista fm = new Inscripcion_vista(todosLosAlumnos, todasLasMaterias);
+        //Crea nueva vista FormularioInscripcion, la muestra y la trae al frente
+        FormularioInscripcion fm = new FormularioInscripcion(conn);
         fm.setVisible(true);
         escritorio.add(fm);
         escritorio.repaint();
@@ -213,15 +223,16 @@ public class Menu extends javax.swing.JFrame {
         dispose();
     }// GEN-LAST:event_jMenuItem5ActionPerformed
 
-    private void jmenuItemMostrarAlumnosActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jmenuItemMostrarAlumnosActionPerformed
-        // TODO add your handling code here:
-        ArrayList<Alumno> alumnosList = new ArrayList<>(todosLosAlumnos);
-        MostrarAlumnos mostrarAlumnosView = new MostrarAlumnos(alumnosList);
-
+    private void jMenuItemMostrarAlumnosActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jmenuItemMostrarAlumnosActionPerformed
+        //Obtiene todos los alumnos
+        MostrarAlumnos mostrarAlumnosView = new MostrarAlumnos((ArrayList) this.alumnoData.obtenerAlumnos());
+        //Borra todo el contenido del canvas
         escritorio.removeAll();
+        //Crea nueva vista MostrarAlumnos, la 
         mostrarAlumnosView.setVisible(true);
         escritorio.add(mostrarAlumnosView);
         escritorio.repaint();
+        escritorio.moveToFront(mostrarAlumnosView);
     }// GEN-LAST:event_jmenuItemMostrarAlumnosActionPerformed
 
     /**
@@ -268,14 +279,18 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
+    private javax.swing.JMenu jMenu5;
+    private javax.swing.JMenu jMenu6;
+    private javax.swing.JMenu jMenu7;
+    private javax.swing.JMenu jMenu8;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JMenuItem jmenuItemMostrarAlumnos;
+    private javax.swing.JMenuItem jMenuItem6;
+    private javax.swing.JMenuItem jMenuItem7;
+    private javax.swing.JMenuItem jMenuItemMostrarAlumnos;
     // End of variables declaration//GEN-END:variables
 }

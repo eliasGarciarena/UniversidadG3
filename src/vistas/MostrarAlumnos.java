@@ -1,43 +1,42 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
+    MostrarAlumnos
  */
 package vistas;
 
 import entidades.Alumno;
 import java.util.ArrayList;
-
 import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author agusv
+ * @author Grupo3_LabI
  */
 public class MostrarAlumnos extends javax.swing.JInternalFrame {
+
     ArrayList<Alumno> alumnoList = new ArrayList<>();
     DefaultTableModel tableModel = new DefaultTableModel();
 
     /**
-     * Creates new form MostrarAlumnos
+     * Crea nuevo MostrarAlumnos
      */
     public MostrarAlumnos(ArrayList<Alumno> alumnoList) {
         initComponents();
         this.alumnoList = alumnoList;
         mostrarTabla();
     }
-    
-     public void mostrarTabla() {
-        DefaultTableModel tableModel = (DefaultTableModel) jtableAlumnos.getModel();        
-        
-        for (Alumno alumnoAux : alumnoList) {            
+
+    public void mostrarTabla() {
+        DefaultTableModel tableModel = (DefaultTableModel) jtableAlumnos.getModel();
+
+        for (Alumno alumnoAux : alumnoList) {
             tableModel
-                    .insertRow(alumnoList.indexOf(alumnoAux),new Object[] {
-                            alumnoAux.getIdAlumno(),
-                            alumnoAux.getNombre(),
-                            alumnoAux.getApellido(),
-                            alumnoAux.getFechNac().toString(),
-                            alumnoAux.getDni() });
-        }        
+                    .insertRow(alumnoList.indexOf(alumnoAux), new Object[]{
+                alumnoAux.getIdAlumno(),
+                alumnoAux.getNombre(),
+                alumnoAux.getApellido(),
+                alumnoAux.getFechNac().toString(),
+                alumnoAux.getDni()});
+        }
     }
 
     /**

@@ -4,13 +4,12 @@
 package vistas;
 
 import data.AlumnoData;
+import data.Conexion;
 import entidades.Alumno;
-import java.sql.Date;
-
+import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.HashSet;
 import javax.swing.JOptionPane;
 
 /**
@@ -19,17 +18,14 @@ import javax.swing.JOptionPane;
  */
 public class FormularioAlumno extends javax.swing.JInternalFrame {
 
-    private HashSet<Alumno> todosLosAlumnos;
-    private AlumnoData alumnoData;
+    private AlumnoData alumnoData = null;
 
     /**
-     * Creates new form formularioAlumno
+     * Crea nuevo FormularioAlumno
      */
-    public FormularioAlumno(HashSet<Alumno> todosLosAlumnos, AlumnoData alumnoData) {
+    public FormularioAlumno(Conexion conexion) {
         initComponents();
-        this.todosLosAlumnos = todosLosAlumnos;
-        this.alumnoData = alumnoData;
-
+        this.alumnoData = new AlumnoData(conexion);
     }
 
     /**
@@ -89,6 +85,7 @@ public class FormularioAlumno extends javax.swing.JInternalFrame {
         });
 
         jbtnNuevo.setText("Nuevo");
+        jbtnNuevo.setEnabled(false);
         jbtnNuevo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtnNuevoActionPerformed(evt);
@@ -96,6 +93,7 @@ public class FormularioAlumno extends javax.swing.JInternalFrame {
         });
 
         jbtnGuardar.setText("Guardar");
+        jbtnGuardar.setEnabled(false);
         jbtnGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtnGuardarActionPerformed(evt);
@@ -118,6 +116,7 @@ public class FormularioAlumno extends javax.swing.JInternalFrame {
         jcbEstado.setSelected(true);
 
         jbtnActualizar.setText("Actualizar");
+        jbtnActualizar.setEnabled(false);
         jbtnActualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtnActualizarActionPerformed(evt);
@@ -225,82 +224,119 @@ public class FormularioAlumno extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jtLegajoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtLegajoFocusLost
-        // TODO add your handling code here:
-        try {
-            int legajo = Integer.parseInt(jtLegajo.getText());
-        } catch (NumberFormatException nf) {
-            JOptionPane.showMessageDialog(this, "Usted debe ingresar un nro");
-            jtLegajo.requestFocus();
-        }
-    }//GEN-LAST:event_jtLegajoFocusLost
-
     private void jbtnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnSalirActionPerformed
         // TODO add your handling code here:
         dispose();
     }//GEN-LAST:event_jbtnSalirActionPerformed
 
     private void jbtnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnGuardarActionPerformed
-        int leg = Integer.parseInt(jtLegajo.getText());
-        String nombre = jtNombre.getText();
-        String apellido = jtApellido.getText();        
-        Long dni = Long.parseLong(jtDni.getText());
-        Boolean activo = jcbEstado.isSelected();
-        
-        //Obtenemos la fecja del jcalendar y la pasamos a LocalDate
-        SimpleDateFormat formatoFecha = new SimpleDateFormat("dd-MM-yyyy");        
-        String fecha = formatoFecha.format(jcalendarFechNac.getDate());
-        LocalDate fechNac = LocalDate.parse(fecha, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-        
-        
-        //(int idAlumno, String nombre, String apellido, LocalDate fechNac, long dni, boolean activo) {
-        Alumno alumno = new Alumno(nombre,apellido,fechNac,dni,activo);
-        if(alumnoData.agregarAlumno(alumno)){
-         todosLosAlumnos.add(alumno);
-        }
-         
+        try {
+            //Obtiene los datos ingresados por el usuario
+            String nombre = jtNombre.getText();
+            String apellido = jtApellido.getText();
+            Long dni = Long.parseLong(jtDni.getText());
+            Boolean activo = jcbEstado.isSelected();
+            //Obtenemos la fecha del jCalendar y la pasamos a LocalDate
+            SimpleDateFormat formatoFecha = new SimpleDateFormat("dd-MM-yyyy");
+            String fecha = formatoFecha.format(jcalendarFechNac.getDate());
+            LocalDate fechNac = LocalDate.parse(fecha, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
 
+            //Construye nuevo alumno y lo guarda en la BD
+            Alumno alumno = new Alumno(nombre, apellido, fechNac, dni, activo);
+            if (alumnoData.agregarAlumno(alumno)) {
+                JOptionPane.showMessageDialog(this, "Alumno Agregado con éxito");
+                jtLegajo.setText(alumno.getIdAlumno() + "");
+                jbtnNuevo.setEnabled(true);
+
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Datos invalidos, verifique su entrada");
+            jtDni.requestFocus();
+        }
     }//GEN-LAST:event_jbtnGuardarActionPerformed
 
     private void jbtnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnBuscarActionPerformed
-        Alumno alumno=alumnoData.obtenerAlumnoXId(Integer.parseInt(jtLegajo.getText()));
-        if(alumno!=null){
-         jtNombre.setText(alumno.getNombre());
-         jtApellido.setText(alumno.getApellido());
-         jtDni.setText(String.valueOf(alumno.getDni()));
-         jcalendarFechNac.setDate(Date.valueOf(alumno.getFechNac()));
-         jcbEstado.setSelected(alumno.isActivo());
-         
-        }else{
-            JOptionPane.showMessageDialog(null, "No se encontro alumno");
+        try {
+            Alumno alumno = alumnoData.obtenerAlumnoXId(Integer.parseInt(jtLegajo.getText()));
+            if (alumno != null) {
+                jtNombre.setText(alumno.getNombre());
+                jtApellido.setText(alumno.getApellido());
+                jtDni.setText(alumno.getDni() + "");
+                jcalendarFechNac.setDate(java.sql.Date.valueOf(alumno.getFechNac()));
+                jcbEstado.setSelected(alumno.isActivo());
+                jbtnNuevo.setEnabled(true);
+                jbtnActualizar.setEnabled(true);
+                jbtnGuardar.setEnabled(false);
+
+            } else {
+
+                JOptionPane.showMessageDialog(this, "No existe un alumno activo con ese legajo");
+
+            }
+        } catch (Exception ex) {
+
+            JOptionPane.showMessageDialog(this, "Legajo Inválido");
         }
     }//GEN-LAST:event_jbtnBuscarActionPerformed
 
     private void jbtnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnNuevoActionPerformed
         // TODO add your handling code here:
-         jtLegajo.setText("");
-         jtNombre.setText("");
-         jtApellido.setText("");
-         jtDni.setText("");
-         LocalDate local=LocalDate.now();
-         jcalendarFechNac.setDate(Date.valueOf(local));
+        limpiar();
+        jbtnGuardar.setEnabled(true);
+        jbtnNuevo.setEnabled(false);
+        jbtnActualizar.setEnabled(false);
     }//GEN-LAST:event_jbtnNuevoActionPerformed
 
     private void jbtnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnActualizarActionPerformed
-        int id=Integer.parseInt(jtLegajo.getText());
-        String nom=jtNombre.getText();
-        String ape=jtApellido.getText();
-        long dni=Long.parseLong(jtDni.getText());
+        int id = -1;
+        try {
+            id = Integer.parseInt(jtLegajo.getText());
+        } catch (Exception ex) {
 
-        boolean estado=jcbEstado.isSelected();
-        SimpleDateFormat formatoFecha = new SimpleDateFormat("dd-MM-yyyy");        
+            JOptionPane.showMessageDialog(this, "Usted debe ingresar un número");
+            jtLegajo.requestFocus();
+        }
+        String nom = jtNombre.getText();
+        String ape = jtApellido.getText();
+        long dni = -1;
+        try {
+            dni = Long.parseLong(jtDni.getText());
+        } catch (Exception e) {
+
+            JOptionPane.showMessageDialog(this, "Usted debe ingresar un número");
+            jtDni.requestFocus();
+
+        }
+        SimpleDateFormat formatoFecha = new SimpleDateFormat("dd-MM-yyyy");
         String fecha = formatoFecha.format(jcalendarFechNac.getDate());
         LocalDate fechNac = LocalDate.parse(fecha, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-        Alumno alumno=new Alumno(id,nom,ape,fechNac,dni,estado);
-        alumnoData.modificarAlumno(alumno);
+
+        boolean estado = jcbEstado.isSelected();
+        Alumno alumno = new Alumno(id, nom, ape, fechNac, dni, estado);
+        if (alumnoData.modificarAlumno(alumno)) {
+
+            JOptionPane.showMessageDialog(this, "Alumno modificado con éxito");
+        }
     }//GEN-LAST:event_jbtnActualizarActionPerformed
 
-
+    private void jtLegajoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtLegajoFocusLost
+        verificarVacio(jtLegajo.getText());       
+    }//GEN-LAST:event_jtLegajoFocusLost
+    
+    private void verificarVacio(String campo){
+        if(!campo.equals("")){
+            jbtnGuardar.setEnabled(true);
+        }
+    }
+    
+    private void limpiar() {
+        this.jtApellido.setText("");
+        this.jtDni.setText("");
+        this.jtLegajo.setText("");
+        this.jtNombre.setText("");
+        this.jcbEstado.setSelected(true);
+        jcalendarFechNac.setDate(null);
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.toedter.calendar.JCalendar jCalendar1;
     private javax.swing.JLabel jLabel1;
