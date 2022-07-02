@@ -193,6 +193,7 @@ public class CargarNotas extends javax.swing.JInternalFrame {
         double nota=Double.parseDouble(txfNotas.getText());
         Materia mat=(Materia)cbxMaterias.getSelectedItem();
         cursadaData.modificarNota(alum, mat, nota);
+        cargarAlumnos();
         JOptionPane.showMessageDialog(this, "Nota cargada con exito");
         }catch(Exception ex){
             JOptionPane.showMessageDialog(this, "Error al Cargar la nota"+ex);
