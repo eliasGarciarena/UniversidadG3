@@ -133,12 +133,12 @@ public class InscripcionData {
         return result;
     }
 
-    public boolean modificarNota(Alumno al, Materia mat, int nota) {
+    public boolean modificarNota(Alumno al, Materia mat, double nota) {
         boolean modifi = false;
         try {
             String sql = "Update cursada Set nota=?   WHERE idAlumno=? AND idMateria=?";
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, nota);
+            ps.setDouble(1, nota);
             ps.setInt(2, al.getIdAlumno());
             ps.setInt(3, mat.getIdMateria());
             int resulset = ps.executeUpdate();

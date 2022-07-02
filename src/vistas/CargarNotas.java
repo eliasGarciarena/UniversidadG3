@@ -16,6 +16,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import javax.swing.ComboBoxModel;
 import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -41,6 +42,12 @@ public class CargarNotas extends javax.swing.JInternalFrame {
         modelo = new DefaultTableModel();
         CabeceraTabla();
         listaMateria= (ArrayList) materiaData.obtenerMateria();
+        btnModNota.setEnabled(false);
+        txfNotas.setEnabled(false);
+        //if(jtblAlumnos.getSelectedColumn()){
+         //   btnModNota.setEnabled(true);
+           // txfNotas.setEnabled(true);
+        //}
     }
 
     /**
@@ -57,6 +64,8 @@ public class CargarNotas extends javax.swing.JInternalFrame {
         jtblAlumnos = new javax.swing.JTable();
         btnSalir = new javax.swing.JButton();
         btnAlumnos = new javax.swing.JButton();
+        btnModNota = new javax.swing.JButton();
+        txfNotas = new javax.swing.JTextField();
 
         cbxMaterias.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -75,6 +84,11 @@ public class CargarNotas extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jtblAlumnos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jtblAlumnosMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jtblAlumnos);
 
         btnSalir.setText("Salir");
@@ -91,41 +105,56 @@ public class CargarNotas extends javax.swing.JInternalFrame {
             }
         });
 
+        btnModNota.setText("Nota");
+        btnModNota.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModNotaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(159, 159, 159)
+                .addComponent(cbxMaterias, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnAlumnos)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(btnSalir)
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 524, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 524, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())))
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(159, 159, 159)
-                        .addComponent(cbxMaterias, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addComponent(btnAlumnos)))
-                .addGap(0, 0, Short.MAX_VALUE))
+                        .addComponent(btnModNota)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txfNotas, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnSalir)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(cbxMaterias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnAlumnos)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cbxMaterias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAlumnos))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnModNota)
+                    .addComponent(txfNotas))
                 .addGap(1, 1, 1)
                 .addComponent(btnSalir)
-                .addContainerGap())
+                .addGap(28, 28, 28))
         );
 
         pack();
@@ -144,7 +173,31 @@ public class CargarNotas extends javax.swing.JInternalFrame {
     private void btnAlumnosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlumnosActionPerformed
         // TODO add your handling code here:
         cargarAlumnos();
+            btnModNota.setEnabled(false);
+            txfNotas.setEnabled(false);
     }//GEN-LAST:event_btnAlumnosActionPerformed
+
+    private void jtblAlumnosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtblAlumnosMouseClicked
+        // TODO add your handling code here:
+        if(jtblAlumnos.getSelectedColumn()>-1){
+            btnModNota.setEnabled(true);
+            txfNotas.setEnabled(true);
+        }
+    }//GEN-LAST:event_jtblAlumnosMouseClicked
+
+    private void btnModNotaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModNotaActionPerformed
+        // TODO add your handling code here:
+        try{
+        int id=(int) (modelo.getValueAt(jtblAlumnos.getSelectedRow(),0));
+        Alumno alum=alumnoData.obtenerAlumnoXId(id);
+        double nota=Double.parseDouble(txfNotas.getText());
+        Materia mat=(Materia)cbxMaterias.getSelectedItem();
+        cursadaData.modificarNota(alum, mat, nota);
+        JOptionPane.showMessageDialog(this, "Nota cargada con exito");
+        }catch(Exception ex){
+            JOptionPane.showMessageDialog(this, "Error al Cargar la nota"+ex);
+        }
+    }//GEN-LAST:event_btnModNotaActionPerformed
 
 
      private void CabeceraTabla() {
@@ -188,9 +241,11 @@ public class CargarNotas extends javax.swing.JInternalFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAlumnos;
+    private javax.swing.JButton btnModNota;
     private javax.swing.JButton btnSalir;
     private javax.swing.JComboBox<Materia> cbxMaterias;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jtblAlumnos;
+    private javax.swing.JTextField txfNotas;
     // End of variables declaration//GEN-END:variables
 }
