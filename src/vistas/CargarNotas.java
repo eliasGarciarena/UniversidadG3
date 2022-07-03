@@ -233,10 +233,14 @@ public class CargarNotas extends javax.swing.JInternalFrame {
     }
     private void cargarAlumnos(){
         borraFilasTabla();
+        try{
         Materia selecc = (Materia) cbxMaterias.getSelectedItem();
         ArrayList<Alumno> alumno = (ArrayList) cursadaData.verInscriptosEn(selecc.getIdMateria());
         for (Alumno alum : alumno) {
             modelo.addRow(new Object[]{alum.getIdAlumno(), alum.getNombre(), alum.getApellido(),alum.getDni(),cursadaData.getNota(alum.getIdAlumno(), selecc.getIdMateria())});
+        }
+        }catch(Exception ex){
+            JOptionPane.showMessageDialog(this, "Error al cargar los alumnos en la tabla: "+ex);
         }
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables

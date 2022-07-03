@@ -65,7 +65,7 @@ public class FormularioMaterias extends javax.swing.JInternalFrame {
 
         jLabel3.setText("Año");
 
-        jtMateria.setText("Inserte su nombre de la materia");
+        jtMateria.setText("nombre de la materia");
         jtMateria.setToolTipText("");
         jtMateria.setMinimumSize(new java.awt.Dimension(20, 100));
         jtMateria.addActionListener(new java.awt.event.ActionListener() {
@@ -136,10 +136,6 @@ public class FormularioMaterias extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jtMateria, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(18, 18, 18)
@@ -151,10 +147,15 @@ public class FormularioMaterias extends javax.swing.JInternalFrame {
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jtAnio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jcbEstado)
-                                    .addComponent(jtID, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addComponent(btnBuscar)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(jcbEstado))))
+                        .addComponent(btnBuscar))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jtID, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addComponent(jLabel2)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jtMateria, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(12, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(btnGuardar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -203,7 +204,7 @@ public class FormularioMaterias extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(19, Short.MAX_VALUE)
+                .addContainerGap(18, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -229,13 +230,18 @@ public class FormularioMaterias extends javax.swing.JInternalFrame {
         }catch(Exception ex){
             JOptionPane.showMessageDialog(this,"Eroor con id:"+ ex);
         }
+        Materia mat=null;
+        try{
         String nombre=jtMateria.getText();
         int anio=Integer.parseInt(jtAnio.getText());
         boolean estado=jcbEstado.isSelected();
-        Materia mat=new Materia(id,nombre,anio,estado);
+        mat=new Materia(id,nombre,anio,estado);
+        }catch(Exception ex){
+            JOptionPane.showMessageDialog(this,"Error con el ingreso de datos"+ ex);
+        }
+
         try{
             materiaData.agregarMateria(mat);
-            JOptionPane.showMessageDialog(this,"Materia agregada con exito");
         }catch(Exception ex){
             JOptionPane.showMessageDialog(this,"Error Al agregar materia"+ ex);
         }
@@ -284,11 +290,16 @@ public class FormularioMaterias extends javax.swing.JInternalFrame {
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
         // TODO add your handling code here:
+        Materia mat=null;
+        try{
         int id=Integer.parseInt(jtID.getText());
         String nom=jtMateria.getText();
         int year=Integer.parseInt(jtAnio.getText());
         boolean estado=jcbEstado.isSelected();
-        Materia mat=new Materia(id,nom,year,estado);
+        mat=new Materia(id,nom,year,estado);
+        }catch(Exception ex){
+        JOptionPane.showMessageDialog(this,"Error con el ingreso de datos"+ ex);
+        }
         try{
             materiaData.modificarMateria(mat);
             JOptionPane.showMessageDialog(this,"Materia actualizada con exito");
