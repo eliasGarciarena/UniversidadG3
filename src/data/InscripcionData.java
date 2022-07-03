@@ -161,7 +161,7 @@ public class InscripcionData {
             ps.setInt(2, idMateria);
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
-                nota = rs.getInt("nota");
+                nota = rs.getDouble("nota");
             }
             ps.close();
         } catch (SQLException ex) {
@@ -263,6 +263,10 @@ public class InscripcionData {
         }
 
         return result;
+    }
+
+    public boolean getNota(String string) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

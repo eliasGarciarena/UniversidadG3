@@ -190,7 +190,7 @@ public class CargarNotas extends javax.swing.JInternalFrame {
         try{
         int id=(int) (modelo.getValueAt(jtblAlumnos.getSelectedRow(),0));
         Alumno alum=alumnoData.obtenerAlumnoXId(id);
-        double nota=Double.parseDouble(txfNotas.getText());
+        double nota=(double) Double.parseDouble(txfNotas.getText());
         Materia mat=(Materia)cbxMaterias.getSelectedItem();
         cursadaData.modificarNota(alum, mat, nota);
         cargarAlumnos();
@@ -235,7 +235,6 @@ public class CargarNotas extends javax.swing.JInternalFrame {
         borraFilasTabla();
         Materia selecc = (Materia) cbxMaterias.getSelectedItem();
         ArrayList<Alumno> alumno = (ArrayList) cursadaData.verInscriptosEn(selecc.getIdMateria());
-        
         for (Alumno alum : alumno) {
             modelo.addRow(new Object[]{alum.getIdAlumno(), alum.getNombre(), alum.getApellido(),alum.getDni(),cursadaData.getNota(alum.getIdAlumno(), selecc.getIdMateria())});
         }
