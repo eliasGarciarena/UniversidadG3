@@ -36,7 +36,7 @@ public class InscripcionData {
     public boolean agregarInscripcion(Inscripcion inscripcion) {
 
         boolean insert = true;
-        String sql = "INSERT INTO cursada (idAlumno, idMateria, nota)  VALUES (?, ?, ?)";
+        String sql = "INSERT INTO inscripcion (idAlumno, idMateria, nota)  VALUES (?, ?, ?)";
         try {
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
@@ -67,7 +67,7 @@ public class InscripcionData {
     public ArrayList<Inscripcion> obtenerInscripciones() {
         ArrayList<Inscripcion> curs = new ArrayList<>();
         try {
-            String sql = "SELECT * FROM cursada ";
+            String sql = "SELECT * FROM inscripcion ";
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
 
@@ -92,7 +92,7 @@ public class InscripcionData {
     public Inscripcion obtenerInscripcionXId(int idAlumno) {
         Inscripcion cur = null;
         try {
-            String sql = "SELECT * FROM cursada WHERE idAlumno = ?";
+            String sql = "SELECT * FROM inscripcion WHERE idAlumno = ?";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, idAlumno);
             ResultSet rs = ps.executeQuery();
@@ -115,7 +115,7 @@ public class InscripcionData {
 
     public boolean eliminarInscripcion(int idinscripcion) {
         boolean result = true;
-        String sql = "DELETE FROM `cursada` WHERE `cursada`.`id` =" + idinscripcion;
+        String sql = "DELETE FROM `inscripcion` WHERE inscripcion.id =" + idinscripcion;
         try {
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             int rs = ps.executeUpdate();
@@ -136,7 +136,7 @@ public class InscripcionData {
     public boolean modificarNota(Alumno al, Materia mat, double nota) {
         boolean modifi = false;
         try {
-            String sql = "Update cursada Set nota=?   WHERE idAlumno=? AND idMateria=?";
+            String sql = "Update inscripcion Set nota=?   WHERE idAlumno=? AND idMateria=?";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setDouble(1, nota);
             ps.setInt(2, al.getIdAlumno());
@@ -155,7 +155,7 @@ public class InscripcionData {
     public double getNota(int idAlumno, int idMateria) {
         double nota = 0;
         try {
-            String sql = "SELECT * FROM cursada WHERE idAlumno=? AND idMateria=?";
+            String sql = "SELECT * FROM inscripcion WHERE idAlumno=? AND idMateria=?";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, idAlumno);
             ps.setInt(2, idMateria);
@@ -174,7 +174,7 @@ public class InscripcionData {
         ArrayList<Materia> materias = new ArrayList();
         try {
             String sql = "Select * from materia where idMateria in "
-                    + "(select idMateria from cursada where idAlumno =?)";
+                    + "(select idMateria from inscripcion where idAlumno =?)";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, alumno.getIdAlumno());
             ResultSet rs = ps.executeQuery();
@@ -198,7 +198,7 @@ public class InscripcionData {
          ArrayList<Materia> materias = new ArrayList<Materia>();
         try {
             String sql = "Select * from materia where idMateria not in "
-                    + "(select idMateria from cursada where idAlumno =?);";
+                    + "(select idMateria from inscripcion where idAlumno =?);";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, alumno.getIdAlumno());
             ResultSet resultSet = ps.executeQuery();
@@ -222,7 +222,7 @@ public class InscripcionData {
     public ArrayList<Alumno> verInscriptosEn(int idMateria) {
         ArrayList<Alumno> inscriptos = new ArrayList<>();
         try {
-            String sql = "Select * from alumno where idAlumno in (select idAlumno from cursada where idMateria =?)"
+            String sql = "Select * from alumno where idAlumno in (select idAlumno from inscripcion where idMateria =?)"
                     + " AND alumno.activo=1;"; 
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, idMateria);
@@ -247,7 +247,7 @@ public class InscripcionData {
 
     public boolean eliminarInscripcion(int idAlumno, int idMateria) {
         boolean result = true;
-        String sql = "DELETE FROM `cursada` WHERE cursada.idAlumno =" + idAlumno+" AND idMateria= "+idMateria;
+        String sql = "DELETE FROM inscripcion WHERE inscripcion.idAlumno =" + idAlumno+" AND idMateria= "+idMateria;
         try {
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             int rs = ps.executeUpdate();
