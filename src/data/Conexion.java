@@ -5,7 +5,6 @@ package data;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 /**
@@ -15,13 +14,13 @@ import javax.swing.JOptionPane;
 public class Conexion {
 
     
-    private String url = "jdbc:mysql://localhost/univeridad_g3";
+    private String url = "jdbc:mysql://localhost/universidadg3";
     private String usuario = "root";
     private String password = "";
 
     private Connection conexion;
 
-    public Conexion() {
+    public Conexion(){
         try {
             Class.forName("org.mariadb.jdbc.Driver");            
         } catch (Exception exc) {
@@ -30,7 +29,7 @@ public class Conexion {
         }
     }
 
-    public Connection getConexion(){
+    public Connection getConexion() throws Exception{
         try {
             if (conexion == null) {
                 // Setup the connection with the DB
@@ -41,6 +40,7 @@ public class Conexion {
         } catch (Exception exc) {
             JOptionPane.showMessageDialog(null, "ERROR AL CONECTARSE A LA BASE DE DATOS\n" + exc.toString());
             System.out.println("ERROR AL CONECTARSE A LA BASE DE DATOS\n" + exc.toString());
+            throw new Exception("dispose()");
         }
         return conexion;
     }

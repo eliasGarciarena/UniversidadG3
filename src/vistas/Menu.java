@@ -3,9 +3,9 @@
  */
 package vistas;
 
-import java.util.ArrayList;
 import data.AlumnoData;
 import data.Conexion;
+import java.awt.event.WindowEvent;
 
 /**
  *
@@ -13,14 +13,20 @@ import data.Conexion;
  */
 public class Menu extends javax.swing.JFrame {
 
-    Conexion conn = new Conexion();
-    AlumnoData alumnoData = new AlumnoData(conn);
+    private Conexion conn;
+    private AlumnoData alumnoData;
 
     /**
      * Crea nuevo Menu
      */
     public Menu() {
         initComponents();
+        try{
+            conn = new Conexion();
+            alumnoData = new AlumnoData(conn);
+        } catch(Exception ex){
+            this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
+        }
     }
 
     /**
@@ -180,7 +186,7 @@ public class Menu extends javax.swing.JFrame {
 
     private void jMnCargarNotasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMnCargarNotasActionPerformed
         escritorio.removeAll();
-        CargarNotas car=new CargarNotas(conn);
+        CargarNotas car = new CargarNotas(conn);
         car.setVisible(true);
         escritorio.add(car);
         escritorio.repaint();
@@ -189,7 +195,6 @@ public class Menu extends javax.swing.JFrame {
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jMenuItem1ActionPerformed
         // TODO add your handling code here:
-
 
     }// GEN-LAST:event_jMenuItem1ActionPerformed
 
@@ -228,7 +233,7 @@ public class Menu extends javax.swing.JFrame {
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jMenuItem5ActionPerformed
         // TODO add your handling code here:
-                escritorio.removeAll();
+        escritorio.removeAll();
 
         FormularioAlumno fa = new FormularioAlumno(conn);
         fa.setVisible(true);

@@ -14,8 +14,9 @@ import javax.swing.JOptionPane;
  * @author Grupo3_LabI
  */
 public class FormularioMaterias extends javax.swing.JInternalFrame {
+
     private MateriaData materiaData = null;
-    
+
     /**
      * Crea nuevo Formulario_materias
      */
@@ -222,44 +223,44 @@ public class FormularioMaterias extends javax.swing.JInternalFrame {
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // PROCESA DATOS MATERIAS
-        int id=-1;
-        try{
-           if(!jtID.getText().equals("")){
-            id=Integer.parseInt(jtID.getText());   
-           }
-        }catch(Exception ex){
-            JOptionPane.showMessageDialog(this,"Eroor con id:"+ ex);
+        int id = -1;
+        try {
+            if (!jtID.getText().equals("")) {
+                id = Integer.parseInt(jtID.getText());
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Eroor con id:" + ex);
         }
-        Materia mat=null;
-        try{
-        String nombre=jtMateria.getText();
-        int anio=Integer.parseInt(jtAnio.getText());
-        boolean estado=jcbEstado.isSelected();
-        mat=new Materia(id,nombre,anio,estado);
-        }catch(Exception ex){
-            JOptionPane.showMessageDialog(this,"Error con el ingreso de datos"+ ex);
+        Materia mat = null;
+        try {
+            String nombre = jtMateria.getText();
+            int anio = Integer.parseInt(jtAnio.getText());
+            boolean estado = jcbEstado.isSelected();
+            mat = new Materia(id, nombre, anio, estado);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Error con el ingreso de datos" + ex);
         }
 
-        try{
+        try {
             materiaData.agregarMateria(mat);
-        }catch(Exception ex){
-            JOptionPane.showMessageDialog(this,"Error Al agregar materia"+ ex);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Error Al agregar materia" + ex);
         }
-            
+
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        try{
-            Materia mat=materiaData.obtenerMateriaXId(Integer.parseInt(jtID.getText()));
+        try {
+            Materia mat = materiaData.obtenerMateriaXId(Integer.parseInt(jtID.getText()));
             jtMateria.setText(mat.getNombre());
-            jtAnio.setText(mat.getYear()+"");
+            jtAnio.setText(mat.getYear() + "");
             btnGuardar.setEnabled(false);
             btnNuevo.setEnabled(true);
             btnActualizar.setEnabled(true);
             btnBorrar.setEnabled(true);
-            
-        }catch(Exception ex){
-            JOptionPane.showMessageDialog(this, "ERROR,Debe Ingresar un id:"+ex,"ERROR busqueda",JOptionPane.ERROR_MESSAGE);
+
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "ERROR: Debe Ingresar un ID\n" + ex, "ERROR busqueda", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
@@ -280,38 +281,37 @@ public class FormularioMaterias extends javax.swing.JInternalFrame {
 
     private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
         // TODO add your handling code here:
-        try{
+        try {
             materiaData.eliminarMateria(Integer.parseInt(jtID.getText()));
-            JOptionPane.showMessageDialog(this,"Materia borrada con exito");
-        }catch(Exception ex){
-            JOptionPane.showMessageDialog(this, "Error al eliminar la materia"+ex);
+            JOptionPane.showMessageDialog(this, "Materia borrada con exito");
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Error al eliminar la materia" + ex);
         }
     }//GEN-LAST:event_btnBorrarActionPerformed
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
         // TODO add your handling code here:
-        Materia mat=null;
-        try{
-        int id=Integer.parseInt(jtID.getText());
-        String nom=jtMateria.getText();
-        int year=Integer.parseInt(jtAnio.getText());
-        boolean estado=jcbEstado.isSelected();
-        mat=new Materia(id,nom,year,estado);
-        }catch(Exception ex){
-        JOptionPane.showMessageDialog(this,"Error con el ingreso de datos"+ ex);
+        Materia mat = null;
+        try {
+            int id = Integer.parseInt(jtID.getText());
+            String nom = jtMateria.getText();
+            int year = Integer.parseInt(jtAnio.getText());
+            boolean estado = jcbEstado.isSelected();
+            mat = new Materia(id, nom, year, estado);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Error con el ingreso de datos" + ex);
         }
-        try{
+        try {
             materiaData.modificarMateria(mat);
-            JOptionPane.showMessageDialog(this,"Materia actualizada con exito");
-        }catch(Exception ex){
-            JOptionPane.showMessageDialog(this,"ERROR al actualizar materia"+ex);
+            JOptionPane.showMessageDialog(this, "Materia actualizada con exito");
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "ERROR al actualizar materia" + ex);
         }
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     /**
      * @param args the command line arguments
      */
-   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizar;
