@@ -5,7 +5,6 @@ package vistas;
 
 import data.AlumnoData;
 import data.Conexion;
-import java.awt.event.WindowEvent;
 
 /**
  *
@@ -13,20 +12,14 @@ import java.awt.event.WindowEvent;
  */
 public class Menu extends javax.swing.JFrame {
 
-    private Conexion conn;
-    private AlumnoData alumnoData;
+    private final Conexion conn = new Conexion();;
+    private final AlumnoData alumnoData = new AlumnoData(conn);
 
     /**
      * Crea nuevo Menu
      */
     public Menu() {
         initComponents();
-        try{
-            conn = new Conexion();
-            alumnoData = new AlumnoData(conn);
-        } catch(Exception ex){
-            this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
-        }
     }
 
     /**

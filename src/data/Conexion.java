@@ -16,7 +16,7 @@ public class Conexion {
     
     private String url = "jdbc:mysql://localhost/universidadg3";
     private String usuario = "root";
-    private String password = "";
+    private String password = "universidadg3TUD$";
 
     private Connection conexion;
 
@@ -29,7 +29,7 @@ public class Conexion {
         }
     }
 
-    public Connection getConexion() throws Exception{
+    public Connection getConexion(){
         try {
             if (conexion == null) {
                 // Setup the connection with the DB
@@ -40,7 +40,7 @@ public class Conexion {
         } catch (Exception exc) {
             JOptionPane.showMessageDialog(null, "ERROR AL CONECTARSE A LA BASE DE DATOS\n" + exc.toString());
             System.out.println("ERROR AL CONECTARSE A LA BASE DE DATOS\n" + exc.toString());
-            throw new Exception("dispose()");
+            System.exit(0);
         }
         return conexion;
     }
