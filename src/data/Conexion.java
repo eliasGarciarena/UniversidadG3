@@ -26,6 +26,7 @@ public class Conexion {
         } catch (Exception exc) {
             JOptionPane.showMessageDialog(null, "ERROR AL CARGAR DRIVER DE BD\n" + exc.toString());
             System.out.println("ERROR AL CARGAR DRIVER DE BD\n" + exc.toString());
+            System.exit(0);
         }
     }
 
