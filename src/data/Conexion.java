@@ -13,10 +13,10 @@ import javax.swing.JOptionPane;
  */
 public class Conexion {
 
-    
-    private String url = "jdbc:mysql://localhost/universidadg3";
+    private String url = "localhost";
+    private String nombreDB = "universidadg3";
     private String usuario = "root";
-    private String password = "universidadg3TUD$";
+    private String password = "";
 
     private Connection conexion;
 
@@ -34,7 +34,7 @@ public class Conexion {
             if (conexion == null) {
                 // Setup the connection with the DB
                 conexion = DriverManager
-                        .getConnection(url + "?useLegacyDatetimeCode=false&serverTimezone=UTC"
+                        .getConnection("jdbc:mysql://" + url + "/" + nombreDB + "?useLegacyDatetimeCode=false&serverTimezone=UTC"
                                 + "&user=" + usuario + "&password=" + password);
             }
         } catch (Exception exc) {
