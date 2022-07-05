@@ -239,7 +239,7 @@ public class Menu extends javax.swing.JFrame {
 
     private void jMenuItemMostrarAlumnosActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jmenuItemMostrarAlumnosActionPerformed
         //Obtiene todos los alumnos
-        MostrarAlumnos mostrarAlumnosView = new MostrarAlumnos((ArrayList) this.alumnoData.obtenerAlumnos());
+        AlumnosXMateria mostrarAlumnosView = new AlumnosXMateria(conn);
         //Borra todo el contenido del canvas
         escritorio.removeAll();
         //Crea nueva vista MostrarAlumnos, la 
